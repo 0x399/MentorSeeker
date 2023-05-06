@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New User</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="header.html"></div>
+<h1>Create New User</h1>
+<form method="POST" th:action="@{/users/create_user}" th:object="${user}">
+    <label for="firstName">First Name: </label>
+    <input type="text" id="firstName" th:field="*{firstName}"/>
+    <br/>
+
+    <label for="lastName">Last Name: </label>
+    <input type="text" id="lastName" th:field="*{lastName}"/>
+    <br/>
+
+    <label for="city">City: </label>
+    <input type="text" id="city" th:field="*{city}"/>
+    <br/>
+
+    <div class="form-group">
+        <label for="role">I am a:</label>
+        <select class="form-control" id="role" th:field="*{role}">
+            <option th:each="role : ${T(com.example.mentorseeker.model.Role).values()}"
+                    th:value="${role}"
+                    th:text="${role.name}">
+            </option>
+        </select>
+    </div>
+
+    <label for="activities">What am I interested in: </label>
+    <input type="text" id="activities" name="activities"/>
+    <br/>
+
+    <input type="submit" value="Register"/>
+    <input type="reset" value="Clear"/>
+</form>
+</body>
+</html>
