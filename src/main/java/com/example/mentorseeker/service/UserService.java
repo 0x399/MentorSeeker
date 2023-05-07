@@ -6,6 +6,7 @@ import com.example.mentorseeker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,6 +36,14 @@ public class UserService implements UserServiceInterface{
 
     public List<User> getByCity(String city){
         return userRepository.findByCity(city);
+    }
+
+    public List<User> getSorted(String activity, String city, Role role){
+        List<Long> ids = userRepository.findIdsByActivityCityAndRole(activity, city, role);
+        List<User> result = new ArrayList<>();
+        for(Long id : ids)
+            result.add(getById(id));
+        return result;
     }
 
     public User update(User user){

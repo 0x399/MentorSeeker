@@ -2,40 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create New User</title>
+    <title>Find a mentor!</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
 <div th:insert="header.html"></div>
-<h1>Create New User</h1>
-<form method="post" action="/users/create_user" enctype="multipart/form-data">
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName">
+<h1>Find a mentor!</h1>
+<form method="post" action="/users/search">
+    <label for="activity">Activity:</label>
+    <input type="text" id="activity" name="activity">
     <br>
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName">
-    <br>
+
     <label for="city">City:</label>
     <input type="text" id="city" name="city">
     <br>
-    <label for="profilePicture">Profile Picture:</label>
-    <input type="file" id="profilePicture" name="profilePicture">
-    <br>
-    <label for="contacts">What am I interested in: </label>
-    <input type="text" id="contacts" name="contacts"/>
-    <br/>
-    <label for="activities">My contacts: </label>
-    <input type="text" id="activities" name="activities"/>
-    <br/>
+
     <div class="form-group">
-        <label for="role">I am a:</label>
+        <label for="role">I am looking for a:</label>
         <select class="form-control" id="role" th:field="*{user.role}">
             <option th:each="role : ${T(com.example.mentorseeker.model.Role).values()}"
                     th:value="${role}"
                     th:text="${role.getName()}"></option>
         </select>
     </div>
+
     <input type="submit" value="Register"/>
     <input type="reset" value="Clear"/>
 </form>

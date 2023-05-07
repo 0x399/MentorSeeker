@@ -23,12 +23,19 @@
 </head>
 <body>
 <div th:insert="header.html"></div>
+
+<img th:attr="src=${'data:image/jpeg;base64,' + encodedImage}" alt="Profile Picture">
+
 <h1 th:text="${user.getFirstName() + ' ' + user.getLastName()}"></h1>
 <h1 th:text="${user.getCity()}"></h1>
 <h1 th:text="${user.getRole().getName()}"></h1>
 <h2 th:text="'Interests: '"></h2>
 <tr th:each="activity : ${user.getActivities()}">
     <td th:text="${activity}"></td>
+</tr>
+
+<tr th:each="contact : ${user.getContacts()}">
+    <td th:text="${contact}"></td>
 </tr>
 </body>
 </html>

@@ -47,4 +47,8 @@ public class User {
     @CollectionTable(name = "user_contacts", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "contact")
     private List<String> contacts;
+
+    @Lob
+    @Column(name = "profile_picture", columnDefinition = "bytea")
+    private byte[] profilePicture;
 }
