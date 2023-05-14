@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
+import java.util.Base64;
 import java.util.List;
 
 @Data
@@ -51,4 +52,8 @@ public class User {
     @Lob
     @Column(name = "profile_picture", columnDefinition = "bytea")
     private byte[] profilePicture;
+
+    public String getPFP(){
+        return Base64.getEncoder().encodeToString(profilePicture);
+    }
 }

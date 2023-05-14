@@ -17,8 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u JOIN u.activities a WHERE a = :activity ORDER BY CASE WHEN a = :activity THEN 0 ELSE 1 END")
     List<User> findByActivity(@Param("activity") String activity);
 
-    @Query("SELECT u.id FROM User u JOIN u.activities a WHERE a = :activity AND u.city = :city ORDER BY CASE WHEN a = :activity THEN 0 ELSE 1 END")
-    List<Long> findIdsByActivityAndCity(@Param("activity") String activity, @Param("city") String city);
+    @Query("SELECT u.id FROM User u JOIN u.activities a WHERE a = :activity AND u.role = :role ORDER BY CASE WHEN a = :activity THEN 0 ELSE 1 END")
+    List<Long> findIdsByActivityAndRole(@Param("activity") String activity, @Param("role") Role role);
 
     @Query("SELECT u.id FROM User u JOIN u.activities a WHERE a = :activity AND u.city = :city AND u.role = :role ORDER BY CASE WHEN a = :activity THEN 0 ELSE 1 END")
     List<Long> findIdsByActivityCityAndRole(@Param("activity") String activity, @Param("city") String city, @Param("role") Role role);

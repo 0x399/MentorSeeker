@@ -102,7 +102,10 @@ public class UserController {
                              @RequestParam("city") String city,
                              @RequestParam("role") Role role,
                              Model model){
-        model.addAttribute("userlist", userService.getSorted(activity, city, role));
-        return "users-list-sorted";
+        if(city != "")
+            model.addAttribute("userlist", userService.getSorted(activity, city, role));
+        else
+            model.addAttribute("userlist", userService.getSortedWOCity(activity, role));
+        return "users-list";
     }
 }
