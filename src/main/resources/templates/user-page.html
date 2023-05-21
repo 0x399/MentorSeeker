@@ -41,7 +41,7 @@
 <body>
 <div th:insert="header.html"></div>
 
-<img th:attr="src=${'data:image/jpeg;base64,' + encodedImage}" alt="Profile Picture">
+<img src="data:image/jpeg;base64," th:attrappend="src=${encodedImage}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
 
 <div class="info">
     <h1 th:text="${user.getFirstName() + ' ' + user.getLastName()}"></h1>

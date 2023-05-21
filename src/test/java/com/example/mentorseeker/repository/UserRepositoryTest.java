@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -54,13 +55,49 @@ class UserRepositoryTest {
 
     @Test
     void findByActivity() {
+        User user = new User();
+        user.setFirstName("Bob");
+        user.setLastName("Bobinson");
+        user.setCity("London");
+        user.setRole(Role.ROLE_MENTOR);
+        List<String> activities = new ArrayList<>();
+        activities.add("Skiing");
+        activities.add("Skating");
+        user.setActivities(activities);
+        userRepository.save(user);
+        assertTrue(userRepository.findByActivity("Skiing").size() == 1);
+        userRepository.delete(user);
     }
 
     @Test
     void findIdsByActivityAndRole() {
+        User user = new User();
+        user.setFirstName("Bob");
+        user.setLastName("Bobinson");
+        user.setCity("London");
+        user.setRole(Role.ROLE_MENTOR);
+        List<String> activities = new ArrayList<>();
+        activities.add("Skiing");
+        activities.add("Skating");
+        user.setActivities(activities);
+        userRepository.save(user);
+        assertTrue(userRepository.findIdsByActivityAndRole("Skiing", Role.ROLE_MENTOR).size()==1);
+        userRepository.delete(user);
     }
 
     @Test
     void findIdsByActivityCityAndRole() {
+        User user = new User();
+        user.setFirstName("Bob");
+        user.setLastName("Bobinson");
+        user.setCity("London");
+        user.setRole(Role.ROLE_MENTOR);
+        List<String> activities = new ArrayList<>();
+        activities.add("Skiing");
+        activities.add("Skating");
+        user.setActivities(activities);
+        userRepository.save(user);
+        assertTrue(userRepository.findIdsByActivityCityAndRole("Skiing", "London", Role.ROLE_MENTOR).size() == 1);
+        userRepository.delete(user);
     }
 }
