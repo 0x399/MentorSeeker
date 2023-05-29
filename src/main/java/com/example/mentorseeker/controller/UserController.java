@@ -106,6 +106,6 @@ public class UserController {
             model.addAttribute("userlist", userService.getSorted(activity, city, role));
         else
             model.addAttribute("userlist", userService.getSortedWOCity(activity, role));
-        return "users-list";
+        return "users-list-sorted";
     }
 }

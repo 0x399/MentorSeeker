@@ -12,12 +12,61 @@
             border-bottom: 1px solid grey;
             text-align: center;
         }
-        .button{
-            background-color: lightskyblue;
-            padding: 10px;
-            border-radius: 10px;
-            width: max-content;
+        .button-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: darkslategrey;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
             color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #a8beba;
+        }
+        tr:nth-child(odd) {
+            background-color: #dfeae6;
+        }
+        body {
+            background-image: url("../website-background-templates2.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flex-container table {
+            margin: 10px;
+            width: 80%;
+        }
+
+        tr {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* Add margin-bottom to create space between rows */
+        }
+
+        th,
+        td {
+            flex-basis: 16%;
+            padding: 8px;
+        }
+        footer{
+            width: 100%;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: darkslategrey;
+            font-size: 18pt;
         }
     </style>
 </head>
@@ -26,39 +75,47 @@
 <div th:insert="header.html"></div>
 <h1>List of Users</h1>
 
-<a href="/users/create_user">
-    <div class="button">
-        Create new User
-    </div>
-</a>
+<div class="button-container">
+    <a href="/users/create_user">
+        <div class="button">
+            Register yourself
+        </div>
+    </a>
 
-<a href="/users/search">
-    <div class="button">
-        Find a mentor
-    </div>
-</a>
+    <a href="/users/search">
+        <div class="button">
+            Search for a mentor
+        </div>
+    </a>
+</div>
 
-<table>
-    <thead>
-    <tr>
-        <th> First name </th>
-        <th> Last name </th>
-        <th> City </th>
-        <th> Activities </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${userlist}">
-        <td th:text="${user.getFirstName()}"></td>
-        <td th:text="${user.getLastName()}"></td>
-        <td th:text="${user.getCity()}"></td>
-        <td th:text="${user.getActivities()}"></td>
-        <td>
-            <a th:href="@{/users/{id}(id=${user.id})}">View</a>
-            <a th:href="@{/users/{id}/delete(id=${user.id})}">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+
+<div class="flex-container">
+    <table>
+        <tbody>
+        <tr th:each="user, row : ${userlist}" th:classappend="${row.even} ? 'even-row' : 'odd-row'">
+            <td>
+                <img src="data:image/jpeg;base64," th:attrappend="src=${user.getPFP()}" alt="Profile Picture"
+                     style="width: 100px; height: 100px; border-radius: 50%;">
+            </td>
+            <td th:text="${user.getFirstName()}"></td>
+            <td th:text="${user.getLastName()}"></td>
+            <td th:text="${user.getCity()}"></td>
+            <td th:text="${user.getActivities()}"></td>
+            <td>
+                <a th:href="@{/users/{id}(id=${user.id})}">View</a>
+                <a th:href="@{/users/{id}/delete(id=${user.id})}">Delete</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" th:text="${userlist.size() + ' candidates found!'}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer>
+    <p>Author: Sviatoslav Pryimak<br>
+        <a href="pryimak.sviat@gmail.com">pryimak.sviat@gmail.com</a></p>
+</footer>
 </body>
 </html>

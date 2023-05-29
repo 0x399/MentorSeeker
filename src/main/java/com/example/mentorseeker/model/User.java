@@ -24,13 +24,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Pattern(regexp = "[A-Z][a-z]+",
-            message = "Must start with a capital letter followed by one or more lowercase letters")
     @Column(name = "firstname", nullable = false)
     private String firstName;
-
-    @Pattern(regexp = "[A-Z][a-z]+",
-            message = "Must start with a capital letter followed by one or more lowercase letters")
+    
     @Column(name = "lastname", nullable = false)
     private String lastName;
 

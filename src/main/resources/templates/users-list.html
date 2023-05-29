@@ -39,12 +39,64 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            border-radius: 5%;
+            text-align: center;
+        }
+
+        .flex-container table {
+            margin: 10px;
+            width: 80%;
+        }
+
+
+
+        tr {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* Add margin-bottom to create space between rows */
+        }
+
+        th,
+        td {
+            flex-basis: 16%;
+            padding: 8px;
+        }
+
+        .videocontainer {
+            margin: auto;
+            width: 80%;
+            border-radius: 5%;
+            background: rgba(130, 200, 200, 0.5);
+            background-position: center;
+            text-align: center;
+            padding-bottom: 25px;
+
+        }
+
+        .videocontainer h2,
+        .videocontainer video {
+            padding-bottom: 25px;
+            padding-top: 25px;
+            display: block;
+            margin: auto;
+        }
+
+        footer{
+            width: 100%;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: darkslategrey;
+            font-size: 18pt;
+        }
     </style>
 </head>
 <body>
 
 <div th:insert="header.html"></div>
-<h1>List of Users</h1>
 
 <div class="button-container">
     <a href="/users/create_user">
@@ -60,34 +112,44 @@
     </a>
 </div>
 
+<div class="videocontainer">
+<h2>Welcome to MentorSeeker!</h2>
 
-<table style="width: 90%; margin: 0 auto;">
-    <thead>
-    <tr>
-        <th>  </th>
-        <th> First name </th>
-        <th> Last name </th>
-        <th> City </th>
-        <th> Activities </th>
-        <th>  </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user, row : ${userlist}" th:classappend="${row.even} ? 'even-row' : 'odd-row'">
-        <td>
-            <img src="data:image/jpeg;base64," th:attrappend="src=${user.getPFP()}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 50%;">
-        </td>
-        <td th:text="${user.getFirstName()}"></td>
-        <td th:text="${user.getLastName()}"></td>
-        <td th:text="${user.getCity()}"></td>
-        <td th:text="${user.getActivities()}"></td>
-        <td>
-            <a th:href="@{/users/{id}(id=${user.id})}">View</a>
-            <a th:href="@{/users/{id}/delete(id=${user.id})}">Delete</a>
-        </td>
-    </tr>
-    <td th:text="${userlist.size() + ' candidates found!'}";> </td>
-    </tbody>
-</table>
+<video controls>
+    <source src="../movie.mp4" type="video/mp4">
+</video>
+
+    <h3>Meet our mentors!</h3>
+</div>
+
+<div class="flex-container">
+    <table>
+        <tbody>
+        <tr th:each="user, row : ${userlist}" th:classappend="${row.even} ? 'even-row' : 'odd-row'">
+            <td>
+                <img src="data:image/jpeg;base64," th:attrappend="src=${user.getPFP()}" alt="Profile Picture"
+                     style="width: 100px; height: 100px; border-radius: 50%;">
+            </td>
+            <td th:text="${user.getFirstName()}"></td>
+            <td th:text="${user.getLastName()}"></td>
+            <td th:text="${user.getCity()}"></td>
+            <td th:text="${user.getActivities()}"></td>
+            <td>
+                <a th:href="@{/users/{id}(id=${user.id})}">View</a>
+                <a th:href="@{/users/{id}/delete(id=${user.id})}">Delete</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" th:text="${userlist.size() + ' mentors found!'}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <p>Author: Sviatoslav Pryimak<br>
+        <a href="pryimak.sviat@gmail.com">pryimak.sviat@gmail.com</a></p>
+</footer>
+
 </body>
 </html>
